@@ -9,5 +9,6 @@ namespace ProductivityTools.GetTask3.Contract
     {
         public string Name { get; set; }
         public int? ParentId { get; set; }
+        public bool Finished { get; set; }
     }
 }
