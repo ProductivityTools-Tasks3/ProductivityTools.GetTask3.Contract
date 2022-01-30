@@ -12,7 +12,7 @@ namespace ProductivityTools.GetTask3.Contract
         public const string Move = "Move";
         public const string Delay = "Delay";
         public const string Delete = "Delete";
-        public const string Update = "Update";
+        public const string Save = "Save";
         public const string TodayList = "TodayList";
         public const string GetRoot = "GetRoot";
         public const string GetParent = "GetParent";

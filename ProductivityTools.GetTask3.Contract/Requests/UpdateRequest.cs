@@ -6,6 +6,8 @@ namespace ProductivityTools.GetTask3.Contract.Requests
 {
     public class UpdateRequest
     {
+
+        public int ParentId { get; set; }
         public int ElementId { get; set; }
         public string Name { get; set; }
     }
