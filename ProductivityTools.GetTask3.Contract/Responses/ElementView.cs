@@ -8,6 +8,7 @@ namespace ProductivityTools.GetTask3.Contract
     public class ElementView 
     {
         public string Name { get; set; }
+        public string Details { get; set; } 
         public string Type { get; set; }
         public int ElementId { get; set; }
         public int? ParentId { get; set; }
