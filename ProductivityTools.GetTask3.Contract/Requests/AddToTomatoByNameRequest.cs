@@ -9,5 +9,6 @@ namespace ProductivityTools.GetTask3.Contract.Requests
         public int ParentId { get; set; }
         public string TaskName { get; set; }
         public string Details { get; set; }
+        public string DetailsType { get; set; }
     }
 }

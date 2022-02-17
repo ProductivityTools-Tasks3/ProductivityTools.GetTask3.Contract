@@ -11,5 +11,6 @@ namespace ProductivityTools.GetTask3.Contract.Requests
         public int ElementId { get; set; }
         public string Name { get; set; }
         public string Details { get; set; }
+        public string DetailsType { get; set; }
     }
 }
