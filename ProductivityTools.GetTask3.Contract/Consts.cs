@@ -15,6 +15,7 @@ namespace ProductivityTools.GetTask3.Contract
         public const string Save = "Save";
         public const string TodayList = "TodayList";
         public const string ThisWeekFinishedList = "ThisWeekFinishedList";
+        public const string ThisWeekFinishedListForUser = "ThisWeekFinishedListForUser";
         public const string GetRoot = "GetRoot";
         public const string GetParent = "GetParent";
         public const string AddToTomatoById = "AddToTomatoById";
