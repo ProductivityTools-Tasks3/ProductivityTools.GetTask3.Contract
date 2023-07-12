@@ -9,6 +9,7 @@ namespace ProductivityTools.GetTask3.Contract
         public const string Task = "Task";
         public const string Finish = "Finish";
         public const string Start = "Start";
+        public const string ChangeType = "ChangeType";
         public const string Move = "Move";
         public const string Delay = "Delay";
         public const string Delete = "Delete";
