@@ -8,6 +8,6 @@ namespace ProductivityTools.GetTask3.Contract.Requests
     public class ChangeTypeRequest
     {
         public int ElementId { get; set; }
-        public ElementType Type { get; set; }
+        public string Type { get; set; }
     }
 }
