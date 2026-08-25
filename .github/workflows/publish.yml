@@ -1,25 +1,62 @@
 name: publish to nuget
+
 on:
   push:
     branches:
-      - master # Default release branch
-jobs:
-    build:
-        runs-on: ubuntu-latest
+      - master
+  workflow_dispatch:
 
-        steps:
-        - name: Checkout
-          uses: actions/checkout@v2
-        - name: Install dependencies
-          run: dotnet restore
-        - name: Build
-          run: dotnet build --configuration Release --no-restore
-        - name: Pack
-          run: dotnet pack --no-build --configuration Release
-        - name: PushNuget
-          run: dotnet nuget push **/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{secrets.NUGET_API_KEY}}
-        - name: PushGithub
-          # The github token is automatically being pulled from the workflow
-          run: dotnet nuget push **/*.nupkg --no-symbols --skip-duplicate
-          env:
-            NUGET_AUTH_TOKEN: ${{ github.token }}
+permissions:
+  contents: write
+  id-token: write  # enable GitHub OIDC token issuance for this job
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Bump Version in csproj
+        run: |
+          python3 -c "
+          import re
+          path = 'ProductivityTools.GetTask3.Contract/ProductivityTools.GetTask3.Contract.csproj'
+          with open(path, 'r') as f:
+              content = f.read()
+          new_content = re.sub(r'<Version>(\d+\.\d+\.)(\d+)</Version>', lambda m: f'<Version>{m.group(1)}{int(m.group(2)) + 1}</Version>', content)
+          with open(path, 'w') as f:
+              f.write(new_content)
+          "
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Install dependencies
+        run: dotnet restore
+
+      - name: Build
+        run: dotnet build --configuration Release --no-restore
+
+      - name: Pack
+        run: dotnet pack --configuration Release --no-build --output ./nupkg
+
+      - name: NuGet login (Trusted Publishing OIDC)
+        uses: NuGet/login@v1
+        id: login
+        with:
+          user: pwujczyk
+
+      - name: Push to NuGet Gallery
+        run: dotnet nuget push ./nupkg/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ steps.login.outputs.NUGET_API_KEY }} --skip-duplicate
+
+      - name: Commit and push updated csproj
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add ProductivityTools.GetTask3.Contract/ProductivityTools.GetTask3.Contract.csproj
+          git commit -m "Bump version in csproj [skip ci]"
+          git push
