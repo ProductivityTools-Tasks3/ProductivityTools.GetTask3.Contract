@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -10,6 +10,8 @@ namespace ProductivityTools.GetTask3.Contract
         public const string Finish = "Finish";
         public const string Start = "Start";
         public const string ChangeType = "ChangeType";
+        public const string SetInboxName = "SetInboxName";
+        public const string ClearInboxName = "ClearInboxName";
         public const string Move = "Move";
         public const string Delay = "Delay";
         public const string Remove = "Remove";

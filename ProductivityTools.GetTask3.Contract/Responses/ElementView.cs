@@ -1,4 +1,4 @@
-﻿using ProductivityTools.GetTask3.Contract.Responses;
+using ProductivityTools.GetTask3.Contract.Responses;
 using ProductivityTools.GetTask3.CoreObjects;
 using System;
 using System.Collections.Generic;
@@ -10,6 +10,7 @@ namespace ProductivityTools.GetTask3.Contract
         public string Name { get; set; }
         public string Details { get; set; }
         public string DetailsType { get; set; }
+        public string InboxName { get; set; }
         public string Type { get; set; }
         public int ElementId { get; set; }
         public int? ParentId { get; set; }
